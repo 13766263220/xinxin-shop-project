@@ -11,6 +11,7 @@
       <set>
         <option value="$PROJECT_DIR$/peoject-dao/pom.xml" />
         <option value="$PROJECT_DIR$/project-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/project-web/pom.xml" />
       </set>
     </option>
   </component>

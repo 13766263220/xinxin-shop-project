@@ -10,9 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>project-service</module>
+        <module>project-entity</module>
         <module>project-dao</module>
         <module>project-web</module>
-        <module>project-entity</module>
     </modules>
 
     <properties>

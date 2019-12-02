@@ -16,6 +16,7 @@
     <bytecodeTargetLevel>
       <module name="peoject-dao" target="1.5" />
       <module name="project-dao" target="1.8" />
+      <module name="project-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
