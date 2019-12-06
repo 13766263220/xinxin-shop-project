@@ -2,11 +2,17 @@ package com.nf.entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class AdminInfo {
     private Integer id;
-    private String username;
+    @NotEmpty
+    private String userName;
+    @NotEmpty
     private String passWord;
+
 }
