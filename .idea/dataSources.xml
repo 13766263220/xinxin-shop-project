@@ -16,5 +16,20 @@
         <property name="serverTimezone" value="GMT+8" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="malldb@localhost" uuid="80155c0f-f0db-4c26-94e7-427e0344465c">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/malldb</jdbc-url>
+      <driver-properties>
+        <property name="autoReconnect" value="true" />
+        <property name="zeroDateTimeBehavior" value="CONVERT_TO_NULL" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+        <property name="serverTimezone" value="GMT+8" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

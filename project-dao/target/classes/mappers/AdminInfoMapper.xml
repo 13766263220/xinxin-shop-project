@@ -15,7 +15,7 @@
     </select>
 
     <select id="getAll" resultMap="adminInfoResultMap">
-        select admin_id, admin_username, admin_password from admin_info
+        select admin_id, admin_username, admin_password from admininfo
         order by admin_id
     </select>
 

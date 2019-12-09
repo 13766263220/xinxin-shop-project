@@ -1,4 +1,4 @@
-package com.nf.controller;
+package com.nf.controller.be;
 
 import com.nf.entity.AdminInfo;
 import com.nf.service.AdminInfoService;
