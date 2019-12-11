@@ -32,4 +32,54 @@
         order by id
     </select>
 
+    <delete id="deleteById">
+        delete from pms_brand where id = #{brandId}
+    </delete>
+
+    <insert id="insertBrand">
+        insert into pms_brand
+        (name, show_status, product_count, product_comment_count, logo, big_pic, brand_story)
+        values (#{name},#{showStatus},#{productCount},#{productCommentCount},#{logo},#{bigPic},#{brandStory});
+    </insert>
+
+    <update id="editBrand">
+        update pms_brand
+        <set>
+            name=#{name},
+            show_status=#{showStatus},
+            product_count=#{productCount},
+            product_comment_count=#{productCommentCount},
+            logo=#{logo},
+            big_pic=#{bigPic},
+            brand_story=#{brandStory}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+    
+    <delete id="batchDeleteById">
+        delete from pms_brand
+        <where>
+            <foreach collection="array" item="id" separator="or" >
+                id=#{id}
+            </foreach>
+        </where>
+    </delete>
+    
+    <update id="batchUpdateStatusById">
+        update pms_brand set
+
+        <trim prefix="show_status = case" suffix="end">
+            <foreach collection="array" item="brand">
+                when id=#{brand.id} then #{brand.showStatus}
+            </foreach>
+        </trim>
+        <where>
+            <foreach collection="array" item="brand" separator="or">
+                id = #{brand.id}
+            </foreach>
+        </where>
+    </update>
+
 </mapper>

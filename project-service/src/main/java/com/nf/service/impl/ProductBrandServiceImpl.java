@@ -23,5 +23,31 @@ public class ProductBrandServiceImpl implements ProductBrandService {
         return productBrandDao.getByName(pageNum,pageSize,name);
     }
 
+    @Override
+    public void deleteById(Integer brandId) {
+        productBrandDao.deleteById(brandId);
+        //这里需要一个事务处理
+    }
+
+    @Override
+    public void insertBrand(ProductBrand productBrand) {
+        productBrandDao.insertBrand(productBrand);
+    }
+
+    @Override
+    public void editBrand(ProductBrand productBrand) {
+        productBrandDao.editBrand(productBrand);
+    }
+
+    @Override
+    public void batchDeleteById(Integer[] ids) {
+        productBrandDao.batchDeleteById(ids);
+    }
+
+    @Override
+    public void batchUpdateStatusById(ProductBrand[] productBrands) {
+        productBrandDao.batchUpdateStatusById(productBrands);
+    }
+
 
 }

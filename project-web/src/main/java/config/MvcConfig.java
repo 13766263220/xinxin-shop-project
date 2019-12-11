@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,6 +20,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @Import(ServiceConfig.class)
 public class MvcConfig implements WebMvcConfigurer {
+
+//    @Bean
+//    public StandardServletMultipartResolver multipartResolver(){
+//        StandardServletMultipartResolver standardServletMultipartResolver =  new StandardServletMultipartResolver();
+//        return standardServletMultipartResolver;
+//    }
 
     /**
      * 添加转换器
@@ -38,4 +45,7 @@ public class MvcConfig implements WebMvcConfigurer {
         InterceptorRegistration interceptorRegistry = registry.addInterceptor(new LoginInterceptor());
         interceptorRegistry.addPathPatterns("/home/**");
     }
+
+
+    
 }

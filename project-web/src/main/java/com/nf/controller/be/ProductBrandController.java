@@ -1,10 +1,8 @@
 package com.nf.controller.be;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.nf.entity.ProductBrand;
 import com.nf.service.ProductBrandService;
-import com.nf.vo.PageVO;
-import com.nf.vo.ProductBrandVO;
 import com.nf.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,21 +17,44 @@ public class ProductBrandController{
     private ProductBrandService productBrandService;
 
     @PostMapping("/list")
-    public ResponseVO list(@RequestBody PageVO pageVO) {
-        PageInfo result = new PageInfo(productBrandService.getAll(pageVO.getPageNum(),pageVO.getPageSize()));
+    public ResponseVO list(Integer pageNum,Integer pageSize) {
+        PageInfo result = new PageInfo(productBrandService.getAll(pageNum,pageSize));
         return ResponseVO.builder().code("200").data(result).build();
     }
 
     @PostMapping("/querybyname")
-    public ResponseVO queryByName(@RequestBody ProductBrandVO productBrandVO) {
-         PageInfo result = new PageInfo(productBrandService.getByName(
-                productBrandVO.getPageVO().getPageNum(),
-                productBrandVO.getPageVO().getPageSize(),
-                productBrandVO.getProductBrand().getName()));
-        for (Object o : result.getList()) {
-            System.out.println(o);
-        }
-
+    public ResponseVO queryByName(Integer pageNum,Integer pageSize,String name) {
+         PageInfo result = new PageInfo(productBrandService.getByName(pageNum,pageSize,name));
         return ResponseVO.builder().code("200").data(result).build();
+    }
+
+    @PostMapping("/deletebyid")
+    public ResponseVO deleteById(Integer brandId){
+        productBrandService.deleteById(brandId);
+        return ResponseVO.builder().code("200").build();
+    }
+
+    @PostMapping("/insert")
+    public ResponseVO insertBrand(@RequestBody ProductBrand productBrand){
+        productBrandService.insertBrand(productBrand);
+        return ResponseVO.builder().code("200").build();
+    }
+
+    @PostMapping("/edit")
+    public ResponseVO editBrand(@RequestBody ProductBrand productBrand){
+        productBrandService.editBrand(productBrand);
+        return ResponseVO.builder().code("200").build();
+    }
+
+    @PostMapping("/batchDeleteById")
+    public ResponseVO batchDelete(@RequestBody Integer[] ids){
+        productBrandService.batchDeleteById(ids);
+        return ResponseVO.builder().code("200").build();
+    }
+
+    @PostMapping("/batchUpdateStatus")
+    public ResponseVO batchUpdateStatus(@RequestBody ProductBrand[] productBrands){
+        productBrandService.batchUpdateStatusById(productBrands);
+        return ResponseVO.builder().code("200").build();
     }
 }

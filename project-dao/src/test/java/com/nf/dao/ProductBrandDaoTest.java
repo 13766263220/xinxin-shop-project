@@ -36,4 +36,34 @@ public class ProductBrandDaoTest {
             System.out.println(brand);
         }
     }
+
+    @Test
+    public void insertBrand() {
+        ProductBrand productBrand = new ProductBrand();
+        productBrand.setName("王老吉");
+        productBrandDao.insertBrand(productBrand);
+    }
+
+    @Test
+    public void batchDeleteById() {
+        Integer [] ids = new Integer[]{7,8};
+        productBrandDao.batchDeleteById(ids);
+    }
+
+    @Test
+    public void batchUpdateStatusById() {
+        ProductBrand productBrand1 = new ProductBrand();
+        productBrand1.setId(6);
+        productBrand1.setShowStatus(0);
+
+        ProductBrand productBrand2 = new ProductBrand();
+        productBrand2.setId(10);
+        productBrand2.setShowStatus(1);
+
+        ProductBrand[] brands = new ProductBrand[2];
+        brands[0]= productBrand1;
+        brands[1] = productBrand2;
+
+        productBrandDao.batchUpdateStatusById(brands);
+    }
 }

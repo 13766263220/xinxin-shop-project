@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.ProductCategoryDao">
+    <resultMap id="categoryResultMap" type="com.nf.entity.ProductCategory">
+        <id property="id" column="id"/>
+        <result property="rank" column="category_rank"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="productCount" column="product_count"/>
+        <result property="productUnit" column="product_unit"/>
+        <result property="showStatus" column="show_status"/>
+        <result property="icon" column="icon"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <select id="getStairAll" resultMap="categoryResultMap">
+        select
+        id, category_rank, parent_id, name, product_count, product_unit, show_status, icon, description
+        from pms_product_category
+        where category_rank = 0
+        order by id
+    </select>
+
+</mapper>

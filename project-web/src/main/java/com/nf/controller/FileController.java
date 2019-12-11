@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.UUID;
 
 //设置跨域
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -39,6 +40,9 @@ public class FileController {
 
         //得到上传过来的文件名,一般要改名,比如用UUID
         String filename = myfile.getOriginalFilename();
+        String suffix = filename.substring(filename.lastIndexOf("."));
+        filename = UUID.randomUUID()+suffix;
+
         String path = FILE_DIRECTORY + File.separator + filename;
         File file = new File(path);
         try {
@@ -46,7 +50,11 @@ public class FileController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return ResponseVO.builder().code("200").msg("上传成功").build();
+        return ResponseVO.builder()
+                .code("200")
+                .msg("上传成功")
+                .data("http://localhost:8080/file/download?filename="+filename)
+                .build();
     }
 
     /**
