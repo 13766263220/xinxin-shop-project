@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.ProductStockDao">
+    <resultMap id="stockResultMap" type="com.nf.entity.ProductStock">
+        <id property="id" column="id"/>
+        <result property="productId" column="product_id"/>
+        <result property="price" column="price"/>
+        <result property="stock" column="stock"/>
+        <result property="lowStock" column="low_stock"/>
+        <result property="pic" column="pic"/>
+        <result property="sale" column="sale"/>
+        <result property="productSpecs" column="product_specs"/>
+    </resultMap>
+
+    <select id="getByProductId" resultMap="stockResultMap">
+        select id, product_id, price, stock, low_stock, pic, sale, product_specs from pms_sku_stock where product_id = #{productId}
+        order by id
+    </select>
+    
+    <insert id="insertStock">
+        insert into pms_sku_stock(product_id, price,stock, low_stock, pic, sale, product_specs)
+        values (#{productId},#{price},#{stock},#{lowStock},#{pic},#{sale},#{productSpecs});
+    </insert>
+
+    <select id="getCountBySpecs" resultType="integer">
+        select count(*)
+        from pms_sku_stock where product_specs = #{specs}
+    </select>
+    
+    <delete id="deleteStockById">
+        delete from pms_sku_stock where id = #{stockId}
+    </delete>
+    
+    <update id="editStock">
+        update pms_sku_stock
+        <set>
+            price = #{price},low_stock=#{lowStock}
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+</mapper>

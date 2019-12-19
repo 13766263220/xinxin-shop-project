@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.ProductDao">
+
+    <!-- 品牌resultMap -->
+    <resultMap id="brandResultMapper" type="com.nf.entity.ProductBrand">
+        <id property="id" column="brand_id"/>
+        <result property="name" column="brand_name"/>
+        <result property="showStatus" column="brand_show_status"/>
+        <result property="productCount" column="product_count"/>
+        <result property="productCommentCount" column="product_comment_count"/>
+        <result property="logo" column="logo"/>
+        <result property="bigPic" column="big_pic"/>
+        <result property="brandStory" column="brand_story"/>
+    </resultMap>
+
+    <!-- 商品类型resultMap -->
+    <resultMap id="categoryResultMap" type="com.nf.entity.ProductCategory">
+        <id property="id" column="category_id"/>
+        <result property="rank" column="category_rank"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentCategoryName" column="parent_category_name"/>
+        <result property="name" column="category_name"/>
+        <result property="productCount" column="product_count"/>
+        <result property="productUnit" column="product_unit"/>
+        <result property="showStatus" column="product_show_status"/>
+        <result property="icon" column="icon"/>
+        <result property="description" column="category_description"/>
+    </resultMap>
+
+    <!-- 商品信息resultMap -->
+    <resultMap id="productResultMap" type="com.nf.entity.Product">
+        <id property="id" column="product_id"/>
+        <result property="name" column="product_name"/>
+        <result property="price" column="price"/>
+        <result property="pic" column="pic"/>
+        <result property="brandId" column="brandId"/>
+        <result property="categoryId" column="product_category_id"/>
+        <result property="sale" column="sale"/>
+        <result property="stock" column="stock"/>
+        <result property="lowStock" column="low_stock"/>
+        <result property="unit" column="unit"/>
+        <result property="publishStatus" column="publish_status"/>
+        <result property="newStatus" column="new_status"/>
+        <result property="recommandStatus" column="recommand_status"/>
+        <result property="description" column="product_description"/>
+        <association property="productCategory" resultMap="categoryResultMap"/>
+        <association property="productBrand" resultMap="brandResultMapper"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="productResultMap">
+        select
+        pp.id as product_id, pp.name as product_name, pp.price, pp.pic, pp.brand_id, pp.product_category_id, pp.sale, pp.stock, pp.low_stock, pp.unit, pp.publish_status, pp.new_status, pp.recommand_status, pp.description as product_description,
+        pb.id as brand_id, pb.name as brand_name, pb.show_status as brand_show_status, pb.product_count, pb.product_comment_count, pb.logo, pb.big_pic, pb.brand_story,
+        ppc.id as category_id, ppc.category_rank, ppc.parent_id, ppc.name as category_name, ppc.product_count, ppc.product_unit, ppc.show_status as product_show_status, ppc.icon, ppc.description as category_description,
+        ppc2.name as parent_category_name
+        from pms_product pp
+        left join pms_brand pb on pp.brand_id = pb.id
+        left join pms_product_category ppc on pp.product_category_id = ppc.id
+        left join pms_product_category ppc2 on ppc.parent_id = ppc2.id
+        order by product_id
+
+    </select>
+
+    <select id="getScreenAll" resultMap="productResultMap">
+        select
+        pp.id as product_id, pp.name as product_name, pp.price, pp.pic, pp.brand_id, pp.product_category_id, pp.sale, pp.stock, pp.low_stock, pp.unit, pp.publish_status, pp.new_status, pp.recommand_status, pp.description as product_description,
+        pb.id as brand_id, pb.name as brand_name, pb.show_status as brand_show_status, pb.product_count, pb.product_comment_count, pb.logo, pb.big_pic, pb.brand_story,
+        ppc.id as category_id, ppc.category_rank, ppc.parent_id, ppc.name as category_name, ppc.product_count, ppc.product_unit, ppc.show_status as product_show_status, ppc.icon, ppc.description as category_description,
+        ppc2.name as parent_category_name
+        from pms_product pp
+        left join pms_brand pb on pp.brand_id = pb.id
+        left join pms_product_category ppc on pp.product_category_id = ppc.id
+        left join pms_product_category ppc2 on ppc.parent_id = ppc2.id
+        <where>
+            <if test="product.name!=null">
+                <bind name="pmsname" value="'%' + product.name + '%'" />
+                and pp.name like #{pmsname}
+            </if>
+            <if test="product.categoryId!=null">
+                and pp.product_category_id = #{product.categoryId}
+            </if>
+            <if test="product.brandId!=null">
+                and pp.brand_id = #{product.brandId}
+            </if>
+            <if test="product.publishStatus!=null">
+                and pp.publish_status = #{product.publishStatus}
+            </if>
+        </where>
+
+        order by product_id
+
+    </select>
+
+    <select id="getAttributeList" resultMap="productResultMap">
+        select attribute_list
+        from pms_product where id = #{id}
+    </select>
+
+    <insert id="insertProduct">
+    insert into pms_product
+    (name, price, pic, brand_id, product_category_id, sale, stock, low_stock, unit, publish_status, new_status, recommand_status, description)
+    values (#{name},#{price},#{pic},#{brandId},#{categoryId},#{sale},#{stock},#{lowStock},#{unit},#{publishStatus},#{newStatus},#{recommandStatus},#{description})
+    </insert>
+
+</mapper>

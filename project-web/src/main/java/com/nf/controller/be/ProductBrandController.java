@@ -7,6 +7,8 @@ import com.nf.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 //设置跨域
 @CrossOrigin(origins = "*", maxAge = 3600)
 
@@ -19,6 +21,12 @@ public class ProductBrandController{
     @PostMapping("/list")
     public ResponseVO list(Integer pageNum,Integer pageSize) {
         PageInfo result = new PageInfo(productBrandService.getAll(pageNum,pageSize));
+        return ResponseVO.builder().code("200").data(result).build();
+    }
+
+    @GetMapping("/getAll")
+    public ResponseVO getAll() {
+        List<ProductBrand> result = productBrandService.getAll();
         return ResponseVO.builder().code("200").data(result).build();
     }
 

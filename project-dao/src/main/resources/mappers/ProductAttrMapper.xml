@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.ProductAttrDao">
+
+    <resultMap id="attrResultMap" type="com.nf.entity.ProductAttr">
+        <id property="id" column="id"/>
+        <result property="name" column="attr_name"/>
+        <result property="categoryId" column="category_id"/>
+        <collection property="attrOptions" resultMap="optionResultMap"/>
+    </resultMap>
+
+    <resultMap id="optionResultMap" type="com.nf.entity.AttrOption">
+        <id property="id" column="oid"/>
+        <result property="name" column="option_name"/>
+        <result property="attrId" column="attr_id"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="attrResultMap">
+        select
+        pa.id, pa.attr_name, pa.category_id,
+        pao.id as oid,pao.option_name,pao.attr_id
+        from pms_attr pa
+        left join pms_attr_option pao on pa.id = pao.attr_id
+        where pa.category_id=#{categoryId}
+        order by pa.id
+    </select>
+    <select id="getAttrCount" resultType="integer">
+        select count(*) from pms_attr
+        where category_id = #{categoryId}
+    </select>
+
+
+    <insert id="insertAttr">
+        insert into pms_attr(attr_name, category_id)
+        values (#{name},#{categoryId})
+    </insert>
+
+    <update id="editAttr">
+        update pms_attr set attr_name = #{name}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteAttr">
+        delete from pms_attr where id=#{attrId}
+    </delete>
+
+
+</mapper>

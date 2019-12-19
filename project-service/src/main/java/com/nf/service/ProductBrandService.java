@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ProductBrandService {
     List<ProductBrand> getAll(Integer pageNum,Integer pageSize);
+    List<ProductBrand> getAll();
     List<ProductBrand> getByName(Integer pageNum,Integer pageSize,String name);
     void deleteById(Integer brandId);
     void insertBrand(ProductBrand productBrand);

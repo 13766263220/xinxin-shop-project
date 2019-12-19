@@ -15,6 +15,21 @@
         <result property="description" column="description"/>
     </resultMap>
 
+    <resultMap id="categoryAllResultMap" type="com.nf.entity.ProductCategory">
+        <id property="id" column="p_id"/>
+        <result property="rank" column="p_category_rank"/>
+        <result property="parentId" column="p_parent_id"/>
+        <result property="name" column="p_name"/>
+        <result property="productCount" column="p_product_count"/>
+        <result property="productUnit" column="p_product_unit"/>
+        <result property="showStatus" column="p_show_status"/>
+        <result property="icon" column="p_icon"/>
+        <result property="description" column="p_description"/>
+
+        <collection property="sonProductCategory" resultMap="categoryResultMap"></collection>
+    </resultMap>
+
+
     <select id="getStairAll" resultMap="categoryResultMap">
         select
         id, category_rank, parent_id, name, product_count, product_unit, show_status, icon, description
@@ -22,5 +37,66 @@
         where category_rank = 0
         order by id
     </select>
+
+    <select id="getAll" resultMap="categoryAllResultMap">
+        select
+        ppc1.id as p_id, ppc1.category_rank as p_category_rank, ppc1.parent_id p_parent_id, ppc1.name as p_name,
+        ppc1.product_count as p_product_count, ppc1.product_unit as p_product_unit,
+        ppc1.show_status as p_show_status, ppc1.icon as p_icon, ppc1.description as p_description,
+
+        ppc2.id, ppc2.category_rank, ppc2.parent_id, ppc2.name,
+        ppc2.product_count, ppc2.product_unit,
+        ppc2.show_status, ppc2.icon, ppc2.description
+
+        from pms_product_category ppc1
+        left join pms_product_category ppc2 on ppc1.id= ppc2.parent_id
+
+        where ppc1.category_rank = 0
+        order by ppc1.id
+    </select>
+
+
+    <delete id="deleteById">
+        delete from pms_product_category where id = #{id}
+    </delete>
+
+    <select id="getCountByParentId" resultType="integer">
+        select count(*) from pms_product_category
+        where parent_id = #{parentId}
+    </select>
+
+
+    <update id="editCategory">
+        update pms_product_category
+        <set>
+            category_rank=#{rank},
+            parent_id=#{parentId},
+            name=#{name},
+            product_count=#{productCount},
+            product_unit=#{productUnit},
+            show_status=#{showStatus},
+            icon=#{icon},
+            description=#{description}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <select id="getByParentId" resultMap="categoryResultMap">
+        select
+        id, category_rank, parent_id, name, product_count, product_unit, show_status, icon, description
+        from pms_product_category
+        where parent_id = #{categoryId}
+        order by id
+    </select>
+
+
+
+    <insert id="insertCategory">
+        insert pms_product_category
+        (category_rank,parent_id, name, product_count, product_unit, show_status, icon, description)
+        values(#{rank},#{parentId},#{name},#{productCount},#{productUnit},#{showStatus},#{icon},#{description});
+    </insert>
 
 </mapper>

@@ -66,4 +66,12 @@ public class ProductBrandDaoTest {
 
         productBrandDao.batchUpdateStatusById(brands);
     }
+
+    @Test
+    public void testGetAll() {
+        List<ProductBrand> list = productBrandDao.getAll();
+        for (ProductBrand productBrand : list) {
+            System.out.println(productBrand);
+        }
+    }
 }

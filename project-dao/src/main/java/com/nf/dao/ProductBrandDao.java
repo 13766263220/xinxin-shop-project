@@ -9,6 +9,8 @@ public interface ProductBrandDao {
 
     List<ProductBrand> getAll(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
+    List<ProductBrand> getAll();
+
     List<ProductBrand> getByName(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("name") String name);
 
     void deleteById(Integer brandId);

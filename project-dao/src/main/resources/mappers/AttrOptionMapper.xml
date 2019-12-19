@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.AttrOptionDao">
+    <resultMap id="attrOptionResultMap" type="com.nf.entity.AttrOption">
+        <id property="id" column="id"/>
+        <result property="name" column="option_name"/>
+        <result property="attrId" column="attr_id"/>
+    </resultMap>
+
+    <insert id="insertAttrOption">
+        insert into pms_attr_option(option_name, attr_id)
+        values(#{name},#{attrId});
+    </insert>
+
+    <delete id="deleteAttrOption">
+        delete from pms_attr_option where id = #{optionId}
+    </delete>
+
+    <select id="getAttrOptionCount" resultType="java.lang.Integer">
+        select count(*) from pms_attr_option where attr_id=#{attrId}
+    </select>
+
+</mapper>

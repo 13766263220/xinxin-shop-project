@@ -26,4 +26,42 @@ public class ProductCategoryDaoTest {
             System.out.println(productCategory);
         }
     }
+
+    @Test
+    public void deleteById() {
+        categoryDao.deleteById(14);
+    }
+
+    @Test
+    public void editCategory() {
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setId(14);
+        productCategory.setName("汽车用品2");
+        categoryDao.editCategory(productCategory);
+    }
+
+    @Test
+    public void getByParentId() {
+        List<ProductCategory> list = categoryDao.getByParentId(2, 5, 1);
+        for (ProductCategory productCategory : list) {
+            System.out.println(productCategory);
+        }
+    }
+
+
+    @Test
+    public void testGetByParentId() {
+        List<ProductCategory> list = categoryDao.getByParentId(0);
+        for (ProductCategory productCategory : list) {
+            System.out.println(productCategory);
+        }
+    }
+
+    @Test
+    public void getAll() {
+        List<ProductCategory> list = categoryDao.getAll();
+        for (ProductCategory productCategory : list) {
+            System.out.println(productCategory);
+        }
+    }
 }

@@ -19,6 +19,11 @@ public class ProductBrandServiceImpl implements ProductBrandService {
     }
 
     @Override
+    public List<ProductBrand> getAll() {
+        return productBrandDao.getAll();
+    }
+
+    @Override
     public List<ProductBrand> getByName(Integer pageNum, Integer pageSize, String name) {
         return productBrandDao.getByName(pageNum,pageSize,name);
     }

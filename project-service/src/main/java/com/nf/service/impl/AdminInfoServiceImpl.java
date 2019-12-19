@@ -26,7 +26,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 
     @Override
     @Transactional
-    public void deleteAdminById(Integer id) {
+    public void deleteAdminById(Integer id) {//测试数据
         adminInfoDao.deleteAdminById(id);
         System.out.println(adminInfoDao.getByUserName("admin"));
     }
