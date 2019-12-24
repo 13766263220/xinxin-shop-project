@@ -4,23 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nf.dao.AdminInfoDao">
     <resultMap id="adminInfoResultMap" type="com.nf.entity.AdminInfo">
-        <id property="id" column="admin_id"/>
+        <id property="id" column="id"/>
         <result property="userName" column="admin_username"/>
         <result property="passWord" column="admin_password"/>
     </resultMap>
     
     <select id="getByUserName" resultMap="adminInfoResultMap">
-        select admin_id, admin_username, admin_password from admin_info
+        select id, admin_username, admin_password from admin_info
         where admin_username = #{userName}
     </select>
 
     <select id="getAll" resultMap="adminInfoResultMap">
-        select admin_id, admin_username, admin_password from admininfo
-        order by admin_id
+        select id, admin_username, admin_password from admininfo
+        order by id
     </select>
 
     <delete id="deleteAdminById">
         delete from admin_info
-        where admin_id = #{id}
+        where id = #{id}
     </delete>
+
+
 </mapper>

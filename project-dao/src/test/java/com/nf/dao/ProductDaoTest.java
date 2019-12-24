@@ -43,8 +43,8 @@ public class ProductDaoTest {
 
     @Test
     public void getAttributeList() {
-        Product product = productDao.getAttributeList(1);
-        System.out.println(product);
+        //Product product = productDao.getAttributeList(1);
+        //System.out.println(product);
     }
 
     @Test

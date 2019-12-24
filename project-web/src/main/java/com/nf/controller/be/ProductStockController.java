@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//设置跨域
-@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 @RequestMapping("/stock")
 public class ProductStockController {

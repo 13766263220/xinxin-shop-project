@@ -6,7 +6,7 @@
 
     <!-- 品牌resultMap -->
     <resultMap id="brandResultMapper" type="com.nf.entity.ProductBrand">
-        <id property="id" column="brand_id"/>
+        <id property="id" column="brand_id_b"/>
         <result property="name" column="brand_name"/>
         <result property="showStatus" column="brand_show_status"/>
         <result property="productCount" column="product_count"/>
@@ -20,7 +20,7 @@
     <resultMap id="categoryResultMap" type="com.nf.entity.ProductCategory">
         <id property="id" column="category_id"/>
         <result property="rank" column="category_rank"/>
-        <result property="parentId" column="parent_id"/>
+        <result property="parentId" column="parent_id_p"/>
         <result property="parentCategoryName" column="parent_category_name"/>
         <result property="name" column="category_name"/>
         <result property="productCount" column="product_count"/>
@@ -36,7 +36,7 @@
         <result property="name" column="product_name"/>
         <result property="price" column="price"/>
         <result property="pic" column="pic"/>
-        <result property="brandId" column="brandId"/>
+        <result property="brandId" column="brand_id"/>
         <result property="categoryId" column="product_category_id"/>
         <result property="sale" column="sale"/>
         <result property="stock" column="stock"/>
@@ -53,8 +53,8 @@
     <select id="getAll" resultMap="productResultMap">
         select
         pp.id as product_id, pp.name as product_name, pp.price, pp.pic, pp.brand_id, pp.product_category_id, pp.sale, pp.stock, pp.low_stock, pp.unit, pp.publish_status, pp.new_status, pp.recommand_status, pp.description as product_description,
-        pb.id as brand_id, pb.name as brand_name, pb.show_status as brand_show_status, pb.product_count, pb.product_comment_count, pb.logo, pb.big_pic, pb.brand_story,
-        ppc.id as category_id, ppc.category_rank, ppc.parent_id, ppc.name as category_name, ppc.product_count, ppc.product_unit, ppc.show_status as product_show_status, ppc.icon, ppc.description as category_description,
+        pb.id as brand_id_b, pb.name as brand_name, pb.show_status as brand_show_status, pb.product_count, pb.product_comment_count, pb.logo, pb.big_pic, pb.brand_story,
+        ppc.id as category_id, ppc.category_rank, ppc.parent_id as parent_id_p, ppc.name as category_name, ppc.product_count, ppc.product_unit, ppc.show_status as product_show_status, ppc.icon, ppc.description as category_description,
         ppc2.name as parent_category_name
         from pms_product pp
         left join pms_brand pb on pp.brand_id = pb.id
@@ -67,8 +67,8 @@
     <select id="getScreenAll" resultMap="productResultMap">
         select
         pp.id as product_id, pp.name as product_name, pp.price, pp.pic, pp.brand_id, pp.product_category_id, pp.sale, pp.stock, pp.low_stock, pp.unit, pp.publish_status, pp.new_status, pp.recommand_status, pp.description as product_description,
-        pb.id as brand_id, pb.name as brand_name, pb.show_status as brand_show_status, pb.product_count, pb.product_comment_count, pb.logo, pb.big_pic, pb.brand_story,
-        ppc.id as category_id, ppc.category_rank, ppc.parent_id, ppc.name as category_name, ppc.product_count, ppc.product_unit, ppc.show_status as product_show_status, ppc.icon, ppc.description as category_description,
+        pb.id as brand_id_b, pb.name as brand_name, pb.show_status as brand_show_status, pb.product_count, pb.product_comment_count, pb.logo, pb.big_pic, pb.brand_story,
+        ppc.id as category_id, ppc.category_rank, ppc.parent_id as parent_id_p, ppc.name as category_name, ppc.product_count, ppc.product_unit, ppc.show_status as product_show_status, ppc.icon, ppc.description as category_description,
         ppc2.name as parent_category_name
         from pms_product pp
         left join pms_brand pb on pp.brand_id = pb.id
@@ -105,4 +105,25 @@
     values (#{name},#{price},#{pic},#{brandId},#{categoryId},#{sale},#{stock},#{lowStock},#{unit},#{publishStatus},#{newStatus},#{recommandStatus},#{description})
     </insert>
 
+    <update id="editProduct">
+        update pms_product
+        <set>
+            name=#{name},
+            price=#{price},
+            pic=#{pic},
+            brand_id=#{brandId},
+            product_category_id=#{categoryId},
+            sale=#{sale},
+            stock=#{stock},
+            low_stock=#{lowStock},
+            unit=#{unit},
+            publish_status=#{publishStatus},
+            new_status=#{newStatus},
+            recommand_status=#{recommandStatus},
+            description=#{description}
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
 </mapper>

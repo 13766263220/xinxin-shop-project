@@ -18,6 +18,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAll() {
+        return productDao.getAll();
+    }
+
+    @Override
     public List<Product> getScreenAll(Integer pageNum, Integer pageSize, Product product) {
         return productDao.getScreenAll(pageNum,pageSize,product);
     }
@@ -25,5 +30,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void insertProduct(Product product) {
         productDao.insertProduct(product);
+    }
+
+    @Override
+    public void editProduct(Product product) {
+        productDao.editProduct(product);
     }
 }

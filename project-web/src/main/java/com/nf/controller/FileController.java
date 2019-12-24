@@ -22,7 +22,7 @@ import java.net.URLEncoder;
 import java.util.UUID;
 
 //设置跨域
-//@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/file")
 public class FileController {

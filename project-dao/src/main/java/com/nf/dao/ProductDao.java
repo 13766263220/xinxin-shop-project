@@ -22,11 +22,21 @@ public interface ProductDao {
     List<Product> getScreenAll(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("product") Product product);
 
 
-     Product getAttributeList(Integer id);
+    /**
+     * 查询所有商品信息（不分页）
+     * @return
+     */
+    List<Product> getAll();
 
     /**
      * 添加商品信息
      * @param product
      */
      void insertProduct(Product product);
+
+    /**
+     * 修改商品信息
+     * @param product
+     */
+     void editProduct(Product product);
 }

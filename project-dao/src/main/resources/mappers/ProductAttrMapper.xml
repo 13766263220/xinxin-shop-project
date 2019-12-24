@@ -24,7 +24,7 @@
         from pms_attr pa
         left join pms_attr_option pao on pa.id = pao.attr_id
         where pa.category_id=#{categoryId}
-        order by pa.id
+        order by pa.attr_name
     </select>
     <select id="getAttrCount" resultType="integer">
         select count(*) from pms_attr

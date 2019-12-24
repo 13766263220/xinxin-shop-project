@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.NodeInfoDao">
+    <resultMap id="nodeResultMap" type="com.nf.entity.NodeInfo">
+        <id property="id" column="id"/>
+        <result property="name" column="node_name"/>
+        <result property="route" column="node_route"/>
+        <result property="url" column="node_url"/>
+        <result property="pid" column="pid"/>
+    </resultMap>
+
+    <select id="getNodeByAdminId" resultMap="nodeResultMap">
+        select distinct
+        ni.id,ni.node_name,ni.node_route,ni.node_url,ni.pid
+        from admin_info ai
+        left join role_admin ra on ai.id = ra.admin_id
+        left join role_info ri on ra.role_id = ri.id
+        left join role_node rn on ri.id = rn.role_id
+        left join node_info ni on ni.id = rn.node_id
+        where ai.id = #{adminId}
+    </select>
+</mapper>
