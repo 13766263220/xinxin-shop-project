@@ -94,10 +94,6 @@
 
     </select>
 
-    <select id="getAttributeList" resultMap="productResultMap">
-        select attribute_list
-        from pms_product where id = #{id}
-    </select>
 
     <insert id="insertProduct">
     insert into pms_product

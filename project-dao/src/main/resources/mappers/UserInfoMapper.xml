@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.UserInfoDao">
+    <resultMap id="userResultMap" type="com.nf.entity.UserInfo">
+        <id property="id" column="id"/>
+        <result property="phone" column="user_phone"/>
+        <result property="passWord" column="pass_word"/>
+        <result property="registrationTime" column="registration_time"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="user_sex"/>
+        <result property="address" column="user_address"/>
+        <result property="status" column="user_status"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="userResultMap">
+        select
+        id, user_phone, pass_word, registration_time, name, user_sex, user_address,user_status
+        from user_info
+        <where>
+            <if test="userInfo.name!=null and userInfo.name!=''">
+                <bind name="uname" value="'%' + userInfo.name + '%'" />
+                and name like #{uname}
+            </if>
+            <if test="userInfo.phone!=null and userInfo.phone!=''">
+                <bind name="uphone" value="'%' + userInfo.phone + '%'" />
+                and user_phone like #{uphone}
+            </if>
+            <if test="userInfo.address!=null and userInfo.address!=''">
+                <bind name="uaddress" value="'%' + userInfo.address + '%'" />
+                and user_address like #{uaddress}
+            </if>
+            <if test="userInfo.status!=null and userInfo.status!=''">
+                and user_status = #{userInfo.status}
+            </if>
+        </where>
+        order by id
+    </select>
+
+    <select id="getByPhone" resultMap="userResultMap">
+        select
+        id, user_phone, pass_word, registration_time, name, user_sex, user_address,user_status
+        from user_info
+        where user_phone = #{phone}
+    </select>
+
+    <delete id="deleteById">
+        delete from user_info where id = #{id}
+    </delete>
+
+    <insert id="insertUserInfo">
+        insert into user_info(user_phone, pass_word, registration_time, name, user_sex, user_address,user_status)
+        values(#{phone},#{passWord},#{registrationTime},#{name},#{sex},#{address},#{status});
+    </insert>
+
+    <update id="editUserInfo">
+        update user_info
+        <set>
+            user_phone=#{phone},
+            pass_word=#{passWord},
+            registration_time=#{registrationTime},
+            name=#{name},
+            user_sex=#{sex},
+            user_address=#{address},
+            user_status=#{status}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+</mapper>

@@ -2,12 +2,16 @@ package com.nf.service.impl;
 
 import com.nf.dao.AttrOptionDao;
 import com.nf.dao.ProductAttrDao;
+import com.nf.entity.AttrOption;
 import com.nf.entity.ProductAttr;
 import com.nf.service.ProductAttrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -20,8 +24,14 @@ public class ProductAttrServiceImpl implements ProductAttrService {
 
     @Override
     public List<ProductAttr> getAll(Integer categoryId) {
-        return productAttrDao.getAll(categoryId);
+        List<ProductAttr> productAttrs = productAttrDao.getAll(categoryId);
+        for (ProductAttr productAttr : productAttrs) {
+            //按照id排序
+            Collections.sort(productAttr.getAttrOptions());
+        }
+        return productAttrs;
     }
+
 
     @Override
     public void insertAttr(ProductAttr productAttr) {

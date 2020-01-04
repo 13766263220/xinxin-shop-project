@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/category")
+//@CrossOrigin(origins = "*",maxAge = 3600)
 public class ProductCategoryController {
     @Autowired
     private ProductCategoryService productCategoryService;

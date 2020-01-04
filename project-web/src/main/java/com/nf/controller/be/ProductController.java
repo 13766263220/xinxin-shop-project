@@ -1,10 +1,9 @@
 package com.nf.controller.be;
 
 import com.github.pagehelper.PageInfo;
-import com.nf.dao.ProductDao;
 import com.nf.entity.Product;
 import com.nf.service.ProductService;
-import com.nf.tdo.ProductTDO;
+import com.nf.dto.ProductDTO;
 import com.nf.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping("getScreenAll")
-    public ResponseVO getScreenAll(@RequestBody ProductTDO productTDO){
+    public ResponseVO getScreenAll(@RequestBody ProductDTO productTDO){
         PageInfo pageInfo = new PageInfo(productService.getScreenAll(
                 productTDO.getPageNum(),
                 productTDO.getPageSize(),

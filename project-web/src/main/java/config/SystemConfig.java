@@ -2,13 +2,12 @@ package config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
 
 public class SystemConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(new MultipartConfigElement(""));
+        registration.setMultipartConfig(new MultipartConfigElement("",200000,2000000,0));
     }
 
     @Override
@@ -24,5 +23,12 @@ public class SystemConfig extends AbstractAnnotationConfigDispatcherServletIniti
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        //FilterRegistration.Dynamic filterRegistration
+
+        super.onStartup(servletContext);
     }
 }
