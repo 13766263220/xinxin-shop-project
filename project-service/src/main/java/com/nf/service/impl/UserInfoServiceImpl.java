@@ -13,7 +13,6 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private UserInfoDao userInfoDao;
 
-
     @Override
     public List<UserInfo> getAll(Integer pageNum, Integer pageSize, UserInfo userInfo) {
         return userInfoDao.getAll(pageNum,pageSize,userInfo);
@@ -23,6 +22,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfo getByPhone(String phone) {
         return userInfoDao.getByPhone(phone);
     }
+
 
     @Override
     public void deleteById(Integer id) {

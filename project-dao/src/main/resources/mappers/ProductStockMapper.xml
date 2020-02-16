@@ -28,6 +28,19 @@
         select count(*)
         from pms_sku_stock where product_specs = #{specs}
     </select>
+
+    <select id="getStockBySpecs" resultMap="stockResultMap">
+        select id,product_id, price,stock, low_stock, pic, sale, product_specs
+        from pms_sku_stock
+        where product_specs = #{specs}
+    </select>
+
+    <select id="getById" resultMap="stockResultMap">
+        select id,product_id, price,stock, low_stock, pic, sale, product_specs
+        from pms_sku_stock
+        where id = #{id}
+    </select>
+
     
     <delete id="deleteStockById">
         delete from pms_sku_stock where id = #{stockId}
@@ -36,11 +49,15 @@
     <update id="editStock">
         update pms_sku_stock
         <set>
-            price = #{price},low_stock=#{lowStock}
+            price = #{price},
+            low_stock=#{lowStock},
+            stock=#{stock}
         </set>
         <where>
             id = #{id}
         </where>
     </update>
+
+
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.nf.dao;
 
+import com.nf.entity.CartItem;
 import com.nf.entity.ProductStock;
 
 import java.util.List;
@@ -31,4 +32,19 @@ public interface ProductStockDao {
      * @param productStock
      */
     void editStock(ProductStock productStock);
+
+    /**
+     * 按照规格查询sku
+     * @param specs
+     * @return
+     */
+    ProductStock getStockBySpecs(String specs);
+
+    /**
+     * 按照id查询sku
+     * @param id
+     * @return
+     */
+    ProductStock getById(Integer id);
+
 }

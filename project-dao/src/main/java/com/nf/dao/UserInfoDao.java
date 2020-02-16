@@ -24,6 +24,7 @@ public interface UserInfoDao {
      */
     UserInfo getByPhone(String phone);
 
+
     /**
      * 按照id删除用户
      * @param id

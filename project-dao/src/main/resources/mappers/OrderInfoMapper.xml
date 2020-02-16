@@ -27,6 +27,50 @@
         select
         id, order_sn, create_time, member_username, total_amount, pay_type, status, receiver_name, receiver_phone, receiver_detail_address, note, confirm_status, payment_time, delivery_time, receive_time, comment_time
         from oms_order
-        order by id
+        order by create_time desc
     </select>
+
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="id">
+    insert into oms_order
+    (order_sn, create_time, member_username, total_amount, pay_type, status, receiver_name, receiver_phone, receiver_detail_address, note, confirm_status, payment_time, delivery_time, receive_time, comment_time)
+    values (#{orderSn},#{createTime},#{userName},#{totalAmount},#{payType},#{status},#{receiverName},#{receiverPhone},
+        #{receiverDetailAddress},#{note},#{confirmStatus},#{paymentTime},#{deliveryTime},#{receiveTime},#{commentTime});
+    </insert>
+    
+    <select id="getByPhone" resultMap="orderResultMap">
+        select
+        id, order_sn, create_time, member_username, total_amount, pay_type, status, receiver_name, receiver_phone, receiver_detail_address, note, confirm_status, payment_time, delivery_time, receive_time, comment_time
+        from oms_order
+        where receiver_phone = #{phone}
+        order by create_time desc
+    </select>
+
+    <select id="getByPhoneAndStatus" resultMap="orderResultMap">
+        select
+        id, order_sn, create_time, member_username, total_amount, pay_type, status, receiver_name, receiver_phone, receiver_detail_address, note, confirm_status, payment_time, delivery_time, receive_time, comment_time
+        from oms_order
+        where receiver_phone = #{receiverPhone} and status = #{status}
+        order by create_time desc
+    </select>
+    
+    <update id="editOrderInfo">
+        update oms_order
+        <set>
+            order_sn = #{orderSn},create_time = #{createTime},
+            member_username = #{userName},total_amount = #{totalAmount},
+            pay_type = #{payType}, status=#{status},
+            receiver_name = #{receiverName},receiver_phone = #{receiverPhone},
+            receiver_detail_address = #{receiverDetailAddress},note=#{note},
+            confirm_status = #{confirmStatus}, payment_time = #{paymentTime},
+            delivery_time = #{deliveryTime}, receive_time = #{receiveTime},
+            comment_time = #{commentTime}
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="deleteById">
+        delete from oms_order where id = #{id}
+    </delete>
 </mapper>

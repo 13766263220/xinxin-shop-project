@@ -94,6 +94,24 @@
 
     </select>
 
+    <select id="getById" resultMap="productResultMap">
+        select
+        pp.id as product_id, pp.name as product_name, pp.price, pp.pic, pp.brand_id, pp.product_category_id, pp.sale, pp.stock, pp.low_stock, pp.unit, pp.publish_status, pp.new_status, pp.recommand_status, pp.description as product_description,
+        pb.id as brand_id_b, pb.name as brand_name, pb.show_status as brand_show_status, pb.product_count, pb.product_comment_count, pb.logo, pb.big_pic, pb.brand_story,
+        ppc.id as category_id, ppc.category_rank, ppc.parent_id as parent_id_p, ppc.name as category_name, ppc.product_count, ppc.product_unit, ppc.show_status as product_show_status, ppc.icon, ppc.description as category_description,
+        ppc2.name as parent_category_name
+        from pms_product pp
+        left join pms_brand pb on pp.brand_id = pb.id
+        left join pms_product_category ppc on pp.product_category_id = ppc.id
+        left join pms_product_category ppc2 on ppc.parent_id = ppc2.id
+        <where>
+                pp.id like #{id}
+        </where>
+
+        order by product_id
+
+    </select>
+
 
     <insert id="insertProduct">
     insert into pms_product

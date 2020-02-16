@@ -69,7 +69,6 @@
     
     <update id="batchUpdateStatusById">
         update pms_brand set
-
         <trim prefix="show_status = case" suffix="end">
             <foreach collection="array" item="brand">
                 when id=#{brand.id} then #{brand.showStatus}

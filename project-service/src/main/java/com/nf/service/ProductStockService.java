@@ -8,6 +8,13 @@ public interface ProductStockService {
     List<ProductStock> getByProductId(Integer productId);
 
     /**
+     * 按照id查询sku
+     * @param id
+     * @return
+     */
+    ProductStock getById(Integer id);
+
+    /**
      * 添加规格
      * @param productStock
      */
@@ -24,4 +31,11 @@ public interface ProductStockService {
      * @param productStock
      */
     void editStock(ProductStock productStock);
+
+    /**
+     * 按照规格查询sku
+     * @param specs
+     * @return
+     */
+    ProductStock getStockBySpecs(String specs);
 }

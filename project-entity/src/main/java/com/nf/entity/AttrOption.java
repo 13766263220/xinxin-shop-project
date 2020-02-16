@@ -12,9 +12,9 @@ public class AttrOption implements Comparable<AttrOption>{
     @Override
     public int compareTo(AttrOption o) {
         if(o.getId() > this.getId()){
-            return 1;
-        }else{
             return 0;
+        }else{
+            return 1;
         }
     }
 }

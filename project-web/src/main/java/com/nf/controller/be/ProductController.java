@@ -29,11 +29,11 @@ public class ProductController {
     }
 
     @PostMapping("getScreenAll")
-    public ResponseVO getScreenAll(@RequestBody ProductDTO productTDO){
+    public ResponseVO getScreenAll(@RequestBody ProductDTO productDTO){
         PageInfo pageInfo = new PageInfo(productService.getScreenAll(
-                productTDO.getPageNum(),
-                productTDO.getPageSize(),
-                productTDO.getProduct())
+                productDTO.getPageNum(),
+                productDTO.getPageSize(),
+                productDTO.getProduct())
         );
         return ResponseVO.builder().code("200").data(pageInfo).build();
     }

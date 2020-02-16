@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.RoleInfoDao">
+    <resultMap id="roleResultMap" type="com.nf.entity.RoleInfo">
+        <id property="id" column="id"/>
+        <result property="name" column="role_name"/>
+        <result property="description" column="role_description"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="roleResultMap">
+        select id, role_name, role_description from role_info
+        order by id
+    </select>
+
+    <insert id="addRoleInfo">
+        insert into role_info(role_name, role_description)
+        values (#{name},#{description});
+    </insert>
+
+    <delete id="deleteById">
+        delete from role_info where id = #{id}
+    </delete>
+
+    <update id="editRoleInfo">
+        update role_info
+        set role_name = #{name},role_description = #{description}
+        where id = #{id}
+    </update>
+</mapper>

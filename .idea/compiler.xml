@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="project-web" />
         <module name="project-service" />
-        <module name="peoject-dao" />
-        <module name="project-entity" />
+        <module name="project-utils" />
         <module name="project-dao" />
+        <module name="peoject-dao" />
+        <module name="project-web" />
+        <module name="project-entity" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

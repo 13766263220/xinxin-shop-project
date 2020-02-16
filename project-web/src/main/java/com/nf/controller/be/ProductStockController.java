@@ -3,6 +3,7 @@ package com.nf.controller.be;
 import com.github.pagehelper.PageInfo;
 import com.nf.entity.ProductStock;
 import com.nf.service.ProductStockService;
+import com.nf.utils.JwtUtil;
 import com.nf.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,16 @@ public class ProductStockController {
     public ResponseVO editStock(@RequestBody ProductStock productStock) {
         productStockService.editStock(productStock);
         return ResponseVO.builder().code("200").build();
+    }
+
+    /**
+     * 按照规格查询sku
+     * @param specs
+     * @return
+     */
+    @GetMapping("/getStockBySpecs")
+    public ResponseVO getStockBySpecs(String specs) {
+        ProductStock productStock = productStockService.getStockBySpecs(specs);
+        return ResponseVO.builder().code("200").data(productStock).build();
     }
 }

@@ -7,6 +7,7 @@
         <id property="id" column="id"/>
         <result property="phone" column="user_phone"/>
         <result property="passWord" column="pass_word"/>
+        <result property="photo" column="user_photo"/>
         <result property="registrationTime" column="registration_time"/>
         <result property="name" column="name"/>
         <result property="sex" column="user_sex"/>
@@ -40,7 +41,7 @@
 
     <select id="getByPhone" resultMap="userResultMap">
         select
-        id, user_phone, pass_word, registration_time, name, user_sex, user_address,user_status
+        id, user_phone, pass_word, user_photo, registration_time, name, user_sex, user_address,user_status
         from user_info
         where user_phone = #{phone}
     </select>
@@ -50,8 +51,8 @@
     </delete>
 
     <insert id="insertUserInfo">
-        insert into user_info(user_phone, pass_word, registration_time, name, user_sex, user_address,user_status)
-        values(#{phone},#{passWord},#{registrationTime},#{name},#{sex},#{address},#{status});
+        insert into user_info(user_phone, pass_word,user_photo, registration_time, name, user_sex, user_address,user_status)
+        values(#{phone},#{passWord},#{photo},#{registrationTime},#{name},#{sex},#{address},#{status});
     </insert>
 
     <update id="editUserInfo">
@@ -59,6 +60,7 @@
         <set>
             user_phone=#{phone},
             pass_word=#{passWord},
+            user_photo=#{photo},
             registration_time=#{registrationTime},
             name=#{name},
             user_sex=#{sex},

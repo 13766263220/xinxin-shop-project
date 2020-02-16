@@ -21,6 +21,12 @@ public interface ProductDao {
      */
     List<Product> getScreenAll(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("product") Product product);
 
+    /**
+     * 按照id查询商品信息
+     * @param id
+     * @return
+     */
+    Product getById(Integer id);
 
     /**
      * 查询所有商品信息（不分页）

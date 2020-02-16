@@ -26,6 +26,13 @@ public interface ProductService {
     List<Product> getScreenAll(Integer pageNum,Integer pageSize,Product product);
 
     /**
+     * 按照id查询商品信息
+     * @param id
+     * @return
+     */
+    Product getById(Integer id);
+
+    /**
      * 添加商品信息
      * @param product
      */

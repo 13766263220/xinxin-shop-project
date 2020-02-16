@@ -27,4 +27,13 @@ public class OrderInfoDaoTest {
         }
 
     }
+
+    @Test
+    public void addOrder() {
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setNote("1");
+        orderInfo.setReceiverName("吴正廉1");
+        orderInfo.setReceiverPhone("110");
+        orderInfoDao.addOrder(orderInfo);
+    }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.CartItemDao">
+    <resultMap id="cartItemResultMap" type="com.nf.entity.CartItem">
+        <id property="id" column="id"/>
+        <result property="quantity" column="item_quantity"/>
+        <result property="price" column="unit_price"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="orderId" column="order_id"/>
+    </resultMap>
+
+    <select id="getByUserId" resultMap="cartItemResultMap">
+        select id, item_quantity, unit_price, sku_id, user_id,order_id from cart_item
+        where user_id = #{userId} and order_id = 0
+    </select>
+
+    <select id="getByUserIdWithSkuId" resultMap="cartItemResultMap">
+        select id, item_quantity, unit_price, sku_id, user_id,order_id from cart_item
+        where user_id = #{userId} and sku_id = #{skuId} and order_id = 0
+    </select>
+
+    <select id="getByOrderId" resultMap="cartItemResultMap">
+        select id, item_quantity, unit_price, sku_id, user_id,order_id from cart_item
+        where order_id = #{orderId}
+    </select>
+    
+    <insert id="addShoppingCart">
+        insert into cart_item(item_quantity, unit_price, sku_id, user_id,order_id)
+        values (#{quantity},#{price},#{skuId},#{userId},#{orderId});
+    </insert>
+
+    <update id="editShoppingCart">
+        update cart_item
+        set item_quantity = #{quantity},
+            unit_price = #{price},
+            sku_id = #{skuId},
+            user_id = #{userId},
+            order_id = #{orderId}
+        where id = #{id}
+    </update>
+
+    <update id="batchEditOrderId">
+        update cart_item set
+        <trim prefix="order_id = case" suffix="end">
+            <foreach collection="array" item="item">
+                when id=#{item.id} then #{item.orderId}
+            </foreach>
+        </trim>
+        <where>
+            <foreach collection="array" item="item" separator="or">
+                id = #{item.id}
+            </foreach>
+        </where>
+    </update>
+
+    <delete id="deleteShoppingCart">
+        delete from cart_item where id = #{id}
+    </delete>
+
+    <delete id="deleteByOrderId">
+        delete from cart_item where order_id = #{orderId}
+    </delete>
+
+</mapper>

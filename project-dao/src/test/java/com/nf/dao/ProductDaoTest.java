@@ -53,4 +53,10 @@ public class ProductDaoTest {
         product.setName("休闲裤子");
         productDao.insertProduct(product);
     }
+
+    @Test
+    public void getById() {
+        Product product = productDao.getById(1);
+        System.out.println(product);
+    }
 }

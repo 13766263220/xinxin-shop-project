@@ -37,7 +37,6 @@ public class UserInfoDaoTest {
     @Test
     public void editUserInfo() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setId(6);
         userInfo.setPhone("sss");
         userInfo.setPassWord("sss");
         userInfo.setRegistrationTime(new Date());
@@ -59,5 +58,10 @@ public class UserInfoDaoTest {
         userInfo.setAddress("江西");
 
         userInfoDao.insertUserInfo(userInfo);
+    }
+
+    @Test
+    public void testInsertUserInfo() {
+
     }
 }

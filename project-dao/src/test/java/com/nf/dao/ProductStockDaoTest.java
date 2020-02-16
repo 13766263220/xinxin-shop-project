@@ -34,4 +34,11 @@ public class ProductStockDaoTest {
     public void editStock() {
         ProductStock productStock = new ProductStock();
     }
+
+    @Test
+    public void getStockBySpecs() {
+        ProductStock productStock = productStockDao.getStockBySpecs("{\"productId\":3,\"内存\":\"8G\",\"颜色\":\"星空蓝\"}");
+
+        System.out.println(productStock);
+    }
 }

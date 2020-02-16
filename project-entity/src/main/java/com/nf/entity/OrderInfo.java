@@ -14,7 +14,7 @@ public class OrderInfo {
     private String userName; //用户账号
     private BigDecimal totalAmount; //订单总金额
     private Integer payType; // 支付方式：0->未支付；1->支付宝；2->微信'
-    private Integer status; //订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+    private Integer status; //订单状态：0->待付款；1->待发货；2->已发货；3->确认收货；4->已关闭
     private String receiverName; // 收货人姓名
     private String receiverPhone; //收货人电话
     private String receiverDetailAddress; //收货详细地址

@@ -4,19 +4,15 @@ import com.nf.entity.AdminInfo;
 import com.nf.entity.NodeInfo;
 import com.nf.service.AdminInfoService;
 import com.nf.service.NodeInfoService;
-import com.nf.vo.AdminRoleNodeVo;
+import com.nf.vo.AdminRoleNodeVO;
 import com.nf.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 @RestController
@@ -41,7 +37,7 @@ public class AdminInfoController {
                 //获得菜单
                 List<NodeInfo> menus = generateMenus(routes);
                 //vo打包把用户信息,角色信息,节点信息
-                AdminRoleNodeVo result = new AdminRoleNodeVo();
+                AdminRoleNodeVO result = new AdminRoleNodeVO();
                 result.setAdminInfo(admin);
                 result.setRoutes(routes);
                 result.setMenus(menus);

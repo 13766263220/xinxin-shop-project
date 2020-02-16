@@ -9,7 +9,7 @@ import java.util.List;
 
 //用户，角色，节点
 @Data
-public class AdminRoleNodeVo {
+public class AdminRoleNodeVO {
     private AdminInfo adminInfo;
     private List<RoleInfo> roles;
     private List<NodeInfo> routes;

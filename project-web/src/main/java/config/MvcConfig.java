@@ -2,7 +2,6 @@ package config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nf.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +20,7 @@ import java.util.List;
 @Configuration
 @ComponentScan({"com.nf.controller","com.nf.exception"})
 @EnableWebMvc
-@Import(ServiceConfig.class)
+@Import({ServiceConfig.class})
 public class MvcConfig implements WebMvcConfigurer {
 
 //    @Bean
@@ -39,15 +38,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addFormatter(new DateFormatter("yyyy-MM-dd"));
     }
 
-//    /**
-//     * 配置拦截器
-//     * @param registry
-//     */
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        InterceptorRegistration interceptorRegistry = registry.addInterceptor(new LoginInterceptor());
-//        interceptorRegistry.addPathPatterns("/home/**");
-//    }
+
 
 
     /**

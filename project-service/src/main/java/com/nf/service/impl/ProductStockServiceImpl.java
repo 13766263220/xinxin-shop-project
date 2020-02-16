@@ -13,9 +13,15 @@ import java.util.List;
 public class ProductStockServiceImpl implements ProductStockService {
     @Autowired
     private ProductStockDao productStockDao;
+
     @Override
     public List<ProductStock> getByProductId(Integer productId) {
         return productStockDao.getByProductId(productId);
+    }
+
+    @Override
+    public ProductStock getById(Integer id) {
+        return productStockDao.getById(id);
     }
 
     @Override
@@ -37,6 +43,16 @@ public class ProductStockServiceImpl implements ProductStockService {
     @Override
     public void editStock(ProductStock productStock) {
         productStockDao.editStock(productStock);
+    }
+
+    /**
+     * 按照规格查询sku
+     * @param specs
+     * @return
+     */
+    @Override
+    public ProductStock getStockBySpecs(String specs) {
+        return productStockDao.getStockBySpecs(specs);
     }
 
 }
