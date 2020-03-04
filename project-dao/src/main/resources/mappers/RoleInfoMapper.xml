@@ -8,10 +8,38 @@
         <result property="name" column="role_name"/>
         <result property="description" column="role_description"/>
     </resultMap>
+    <resultMap id="roleNameResultMap" type="com.nf.entity.RoleName">
+        <result property="roleName" column="role_name"/>
+        <result property="count" column="c"/>
+    </resultMap>
 
     <select id="getAll" resultMap="roleResultMap">
         select id, role_name, role_description from role_info
+        <where>
+            <if test="roleInfo.name != null and roleInfo.name !=''">
+                <bind name="rname" value="'%' + roleInfo.name + '%'" />
+                role_name like #{rname}
+            </if>
+        </where>
         order by id
+    </select>
+
+    <select id="getUserCount" resultType="integer">
+        select count(*) from role_info ri
+         inner join role_admin ra on ri.id = ra.role_id
+         inner join admin_info ai on ra.admin_id = ai.id
+        where ri.id = #{id};
+    </select>
+
+    <select id="getRoleName" resultMap="roleNameResultMap">
+        select riall.role_name,count(*) c
+        from (select ri.* from admin_info ai
+        inner join role_admin ra on ra.admin_id = ai.id
+        inner join role_info ri on ra.role_id = ri.id
+        where ai.id = #{id}) riall
+        inner join role_node ro on ro.role_id = riall.id
+        inner join node_info ni on ro.node_id = ni.id
+        group by riall.role_name;
     </select>
 
     <insert id="addRoleInfo">

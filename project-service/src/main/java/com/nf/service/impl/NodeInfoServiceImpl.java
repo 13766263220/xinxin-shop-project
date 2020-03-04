@@ -16,4 +16,14 @@ public class NodeInfoServiceImpl implements NodeInfoService {
     public List<NodeInfo> getNodeByAdminId(Integer adminId) {
         return nodeInfoDao.getNodeByAdminId(adminId);
     }
+
+    @Override
+    public List<NodeInfo> getAll() {
+        return nodeInfoDao.getAll();
+    }
+
+    @Override
+    public List<NodeInfo> getByRoleId(Integer id) {
+        return nodeInfoDao.getByRoleId(id);
+    }
 }

@@ -24,9 +24,18 @@ public class AdminInfoDaoTest {
 
     @Test
     public void getAll() {
-        List<AdminInfo> adminInfos = adminInfoDao.getAll(3, 2);
+        List<AdminInfo> adminInfos = adminInfoDao.getAll(null, null);
         for (AdminInfo adminInfo : adminInfos) {
             System.out.println(adminInfo);
         }
+    }
+
+
+    @Test
+    public void getByRoleId() {
+//        List<AdminInfo> adminInfos = adminInfoDao.getByRoleId(2);
+//        for (AdminInfo adminInfo : adminInfos) {
+//            System.out.println(adminInfo);
+//        }
     }
 }

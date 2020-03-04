@@ -18,8 +18,21 @@ create table admin_info
 );
 select * from admin_info;
 
+select riall.role_name,count(*) c
+from (select ri.* from admin_info ai
+                           inner join role_admin ra on ra.admin_id = ai.id
+                           inner join role_info ri on ra.role_id = ri.id
+      where ai.id = 2) riall
+         inner join role_node ro on ro.role_id = riall.id
+         inner join node_info ni on ro.node_id = ni.id
+group by riall.role_name;
+
 insert into admin_info(admin_username, admin_password) values ('admin','111');
 insert into admin_info(admin_username, admin_password) values ('wzl','wzl');
+insert into admin_info(admin_username, admin_password) values ('111','111');
+insert into admin_info(admin_username, admin_password) values ('222','222');
+insert into admin_info(admin_username, admin_password) values ('333','333');
+insert into admin_info(admin_username, admin_password) values ('444','444');
 select * from admin_info;
 
 /*角色信息表*/
@@ -29,21 +42,40 @@ create table role_info
     role_name varchar(50) comment '角色名称',
     role_description varchar(100) comment '角色描述'
 );
+
+select *from role_info;
+
+select
+    ni.id,ni.node_name, ni.node_route,ni.node_url,ni.pid
+from role_info ri
+         inner join role_node rn on ri.id = rn.role_id
+         inner join node_info ni on rn.node_id = ni.id
+where ri.id = 2;
+
 insert into role_info(role_name, role_description) values ('管理员','拥有大部分的权力');
 insert into role_info(role_name, role_description) values ('超级管理员','拥有至高无上的权力');
+
+insert into role_info(role_name, role_description) values ('打杂1','被安排的明明白白');
+insert into role_info(role_name, role_description) values ('打杂2','被安排的明明白白');
+insert into role_info(role_name, role_description) values ('打杂3','被安排的明明白白');
+insert into role_info(role_name, role_description) values ('打杂4','被安排的明明白白');
+
 
 /*角色用户表(连接管理员表和角色表)*/
 create table role_admin
 (
     id int auto_increment primary key,
     admin_id int comment '管理员id',
-    role_id int comment '角色id',
-    foreign key(admin_id) references admin_info(id),
-    foreign key(role_id) references role_info(id)
+    role_id int comment '角色id'
 );
+select * from role_admin;
 insert into role_admin(admin_id, role_id) values (1,1);
 insert into role_admin(admin_id, role_id) values (2,1);
 insert into role_admin(admin_id, role_id) values (2,2);
+
+
+
+
 
 /*节点权限表*/
 create table node_info
@@ -67,29 +99,29 @@ insert into node_info(node_name, node_route,node_url,pid) values ('品牌管理'
 
 insert into node_info(node_name, node_route,node_url,pid) values ('订单','orderForm','',0);
 insert into node_info(node_name, node_route,node_url,pid) values ('订单列表','orderFormList','',8);
-insert into node_info(node_name, node_route,node_url,pid) values ('订单设置','orderFormSetting','',8);
-insert into node_info(node_name, node_route,node_url,pid) values ('退货申请处理','salesReturnRequest','',8);
 
 insert into node_info(node_name, node_route,node_url,pid) values ('用户','user','',0);
-insert into node_info(node_name, node_route,node_url,pid) values ('用户信息','userInfoList','',12);
+insert into node_info(node_name, node_route,node_url,pid) values ('用户信息','userInfoList','',10);
 
 insert into node_info(node_name, node_route,node_url,pid) values ('管理员','admin','',0);
-insert into node_info(node_name, node_route,node_url,pid) values ('管理员信息','adminInfoList','',14);
-insert into node_info(node_name, node_route,node_url,pid) values ('角色授权','userAuthorization','',14);
+insert into node_info(node_name, node_route,node_url,pid) values ('管理员信息','adminInfoList','',12);
+insert into node_info(node_name, node_route,node_url,pid) values ('角色授权','userAuthorization','',12);
 
 
-
+select ai.id,ai.admin_username,ai.admin_password from role_info ri
+                                                          inner join role_admin ra on ri.id = ra.role_id
+                                                          inner join admin_info ai on ra.admin_id = ai.id
+where ri.id = 1;
 
 /*角色权限表*/
 create table role_node
 (
     id int auto_increment primary key,
     role_id int,
-    node_id int,
-    foreign key(role_id) references role_info(id),
-    foreign key(node_id) references node_info(id)
+    node_id int
 );
 select * from role_node;
+select * from role_node where role_id = 1;
 insert into role_node(role_id, node_id) values(1,1);
 insert into role_node(role_id, node_id) values(1,2);
 insert into role_node(role_id, node_id) values(2,1);
@@ -112,14 +144,14 @@ insert into role_node(role_id, node_id) values(2,16);
 
 
 
-select distinct
-    ni.id,ni.node_name,ni.node_route,ni.node_url,ni.pid
-from admin_info ai
-    left join role_admin ra on ai.id = ra.admin_id
-    left join role_info ri on ra.role_id = ri.id
-    left join role_node rn on ri.id = rn.role_id
-    left join node_info ni on ni.id = rn.node_id
-where ai.id = 2
+select * from (select distinct
+                   ni.id,ni.node_name,ni.node_route,ni.node_url,ni.pid
+               from admin_info ai
+                        inner join role_admin ra on ai.id = ra.admin_id
+                        inner join role_info ri on ra.role_id = ri.id
+                        inner join role_node rn on ri.id = rn.role_id
+                        inner join node_info ni on ni.id = rn.node_id
+               where ai.id = 1) niall
 
 ;
 #商品分类表
@@ -382,13 +414,13 @@ values('13766263221','111','http://localhost:8080/file/download?filename=小米p
 drop table cart_item;
 create table cart_item
 (
-  id bigint not null auto_increment,
-  item_quantity int comment '数量',
-  unit_price decimal(10,2) comment '单价',
-  sku_id bigint comment 'SKU库存id',
-  user_id bigint comment '用户id',
-  order_id bigint comment '订单id,->0表示未添加到订单中',
-  primary key (id)
+    id bigint not null auto_increment,
+    item_quantity int comment '数量',
+    unit_price decimal(10,2) comment '单价',
+    sku_id bigint comment 'SKU库存id',
+    user_id bigint comment '用户id',
+    order_id bigint comment '订单id,->0表示未添加到订单中',
+    primary key (id)
 );
 select * from cart_item;
 delete from cart_item where id = 7;

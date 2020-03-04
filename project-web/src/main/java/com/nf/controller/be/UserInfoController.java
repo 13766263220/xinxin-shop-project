@@ -98,6 +98,13 @@ public class UserInfoController {
         userInfoService.editUserInfo(userInfoDTO.getUserInfo());
         return ResponseVO.builder().code("200").msg("编辑成功").build();
     }
+    @PutMapping("/userInfo/newPassword")
+    public ResponseVO editUserInfo(@RequestBody UserInfo userInfo) {
+        UserInfo uInfo = userInfoService.getByPhone(userInfo.getPhone());
+        uInfo.setPassWord(userInfo.getPassWord());
+        userInfoService.editUserInfo(uInfo);
+        return ResponseVO.builder().code("200").msg("设置新密码成功").build();
+    }
 
     @PostMapping("/userInfo/insert")
     public ResponseVO insertUserInfo(@RequestBody UserInfo userInfo) {

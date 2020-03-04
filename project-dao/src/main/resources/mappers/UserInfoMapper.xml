@@ -32,7 +32,7 @@
                 <bind name="uaddress" value="'%' + userInfo.address + '%'" />
                 and user_address like #{uaddress}
             </if>
-            <if test="userInfo.status!=null and userInfo.status!=''">
+            <if test="userInfo.status!=null">
                 and user_status = #{userInfo.status}
             </if>
         </where>

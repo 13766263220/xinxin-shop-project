@@ -1,6 +1,7 @@
 package com.nf.dao;
 
 import com.nf.entity.RoleInfo;
+import com.nf.entity.RoleName;
 import config.DaoConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +22,28 @@ public class RoleInfoDaoTest {
     private  RoleInfoDao roleInfoDao;
     @Test
     public void getAll() {
-        List<RoleInfo> result = roleInfoDao.getAll(1, 2);
-        for (RoleInfo roleInfo : result) {
-            System.out.println(roleInfo);
+//        List<RoleInfo> result = roleInfoDao.getAll(1, 2);
+//        for (RoleInfo roleInfo : result) {
+//            System.out.println(roleInfo);
+//        }
+    }
+
+    @Test
+    public void getRoleName() {
+        List<RoleName> roleNames = roleInfoDao.getRoleName(2);
+        Integer count = 0;
+        for (RoleName roleName : roleNames) {
+            if(roleName.getCount()>count) {
+                count = roleName.getCount();
+            }
         }
+        RoleName result = null;
+        for (RoleName roleName : roleNames){
+            if(roleName.getCount().equals(count)){
+                result = roleName;
+                break;
+            }
+        }
+        System.out.println(result);
     }
 }

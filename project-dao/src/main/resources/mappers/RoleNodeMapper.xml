@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.RoleNodeDao">
+    <insert id="batchAddInfo">
+        insert into role_node(role_id, node_id)
+        values
+        <foreach collection="list" separator="," item="rn">
+            (#{rn.roleId},#{rn.nodeId})
+        </foreach>
+    </insert>
+    <insert id="batchDelInfo">
+        delete from role_node
+        <where>
+            <foreach collection="list" separator="or" item="rn">
+                role_id = #{rn.roleId}
+            </foreach>
+        </where>
+    </insert>
+</mapper>

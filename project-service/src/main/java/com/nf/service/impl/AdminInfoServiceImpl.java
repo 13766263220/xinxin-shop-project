@@ -26,6 +26,10 @@ public class AdminInfoServiceImpl implements AdminInfoService {
         return adminInfoDao.getAll(pageNum,pageSize);
     }
 
+    @Override
+    public List<AdminInfo> getByRoleId(Integer pageNum,Integer pageSize,Integer roleId) {
+        return adminInfoDao.getByRoleId(pageNum,pageSize,roleId);
+    }
 
 
     @Override

@@ -14,5 +14,6 @@ public class AdminRoleNodeVO {
     private List<RoleInfo> roles;
     private List<NodeInfo> routes;
     private List<NodeInfo> menus;
+    private String position;
 
 }

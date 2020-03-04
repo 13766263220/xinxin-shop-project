@@ -12,13 +12,26 @@
     </resultMap>
 
     <select id="getNodeByAdminId" resultMap="nodeResultMap">
-        select distinct
-        ni.id,ni.node_name,ni.node_route,ni.node_url,ni.pid
+        select * from (select distinct
+            ni.id,ni.node_name,ni.node_route,ni.node_url,ni.pid
         from admin_info ai
-        left join role_admin ra on ai.id = ra.admin_id
-        left join role_info ri on ra.role_id = ri.id
-        left join role_node rn on ri.id = rn.role_id
-        left join node_info ni on ni.id = rn.node_id
-        where ai.id = #{adminId}
+            inner join role_admin ra on ai.id = ra.admin_id
+            inner join role_info ri on ra.role_id = ri.id
+            inner join role_node rn on ri.id = rn.role_id
+            inner join node_info ni on ni.id = rn.node_id
+        where ai.id = #{adminId}) niall
+    </select>
+
+    <select id="getAll" resultMap="nodeResultMap">
+        select id, node_name, node_route, node_url, pid from node_info
+    </select>
+
+    <select id="getByRoleId" resultMap="nodeResultMap">
+        select
+        ni.id,ni.node_name, ni.node_route,ni.node_url,ni.pid
+        from role_info ri
+        inner join role_node rn on ri.id = rn.role_id
+        inner join node_info ni on rn.node_id = ni.id
+        where ri.id = #{id};
     </select>
 </mapper>

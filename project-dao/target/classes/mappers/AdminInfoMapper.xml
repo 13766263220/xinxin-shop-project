@@ -15,9 +15,17 @@
     </select>
 
     <select id="getAll" resultMap="adminInfoResultMap">
-        select id, admin_username, admin_password from admininfo
+        select id, admin_username, admin_password from admin_info
         order by id
     </select>
+    <select id="getByRoleId" resultMap="adminInfoResultMap">
+        select ai.id,ai.admin_username,ai.admin_password from role_info ri
+         inner join role_admin ra on ri.id = ra.role_id
+         inner join admin_info ai on ra.admin_id = ai.id
+        where ri.id = #{roleId}
+        order by id
+    </select>
+
 
     <delete id="deleteAdminById">
         delete from admin_info
